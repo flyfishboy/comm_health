@@ -37,7 +37,7 @@ public class CommroomController {
             return "success";
 
     }
-    @PostMapping("/save2") //同时添加两个数据
+    @PostMapping("/save2") //同时添加两个数据，这个数据是调换后的，便于查询
     public String save2(@RequestBody Commroom commroom){
 
         String aa = commroom.getAccounta();
@@ -56,6 +56,13 @@ public class CommroomController {
 
     }
 
+    //删除两个人的聊天内容
+    @PostMapping("/deleteByAB") //删除
+    public void deleteByAB(@RequestBody Commroom commroom){
+
+        commroomRepository.deleteByAccountaAndAccountb(commroom.getAccounta(),commroom.getAccountb());
+    }
+    //删除两个人的聊天内容
     @DeleteMapping("/deleteById/{id}") //删除
     public void deleteById(@PathVariable("id") Integer id){
         commroomRepository.deleteById(id);

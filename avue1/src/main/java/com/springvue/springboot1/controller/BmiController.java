@@ -28,7 +28,7 @@ public class BmiController  {
     @PostMapping("/findAllByTime/{page}/{size}") //通过时间模糊查找
     public Page<Bmi> findAllByAccountTimeLike(@PathVariable("page") Integer page, @PathVariable("size") Integer size,
                                          @RequestBody Bmi bmi) {
-//        System.out.println(bmi);
+        System.out.println(bmi);
         PageRequest request = PageRequest.of(page, size);
         return bmiRepository.findByAccountAndTimeLike(request,bmi.getAccount(),"%"+bmi.getTime()+"%");
     }

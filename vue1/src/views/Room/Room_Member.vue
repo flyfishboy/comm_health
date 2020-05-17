@@ -1,5 +1,8 @@
 <template>
     <div style="background-color: skyblue;height: 720px" align="center">
+        <div style="margin-top: -1%">
+            <h2>聊天用户</h2>
+        </div>
         <el-input style="width: 20%" v-model="member.name" size="mini" placeholder="输入姓名搜索" @clear="getList()" clearable/>&nbsp;
         <el-button  @click="findName">搜索</el-button>
         <el-table
@@ -52,6 +55,7 @@
     export default {
         data() {
             return {
+                flag:'1',
                 pageSize: 0,
                 total: 0,
                 tableData: [],
@@ -60,12 +64,7 @@
                 member: {
                     name: ''
                 },
-                // atob:{
-                //     accounta:window.sessionStorage.getItem("account"),
-                //     accountb:'',
-                //     namea:window.sessionStorage.getItem("name"),
-                //     nameb:'',
-                // }
+
             }
         },
 
@@ -97,21 +96,16 @@
             // 模糊查找
             findName() {
                 const _this = this;
+                _this.flag = 2;
                 axios.post('http://localhost:8181/member/findAllByName/0/6', this.member).then(function (resp) {
-                    console.log(resp);
+                    // console.log(resp);
                     _this.tableData = resp.data.content;
                     _this.pageSize = resp.data.size;
                     _this.total = resp.data.totalElements;
                 })
             },
-            //进入聊天室,并将聊天对象存入atob表中
+            //进入聊天室
             Edit_A(row) {
-                // this.atob.accountb = row.account;
-                // this.atob.nameb = row.name;
-                // axios.post('http://localhost:8181/atob/find',this.atob ).then(function (resp) {
-                //     console.log(resp);
-                // });
-
                 this.$router.push({
                     path:'/Room_Comm',
                     query:{
@@ -125,12 +119,20 @@
             //分页查出所有用户数据
             page(currentPage) {
                 const _this = this;
+                if(_this.flag == 1){
                 axios.get('http://localhost:8181/member/findAll/' + (currentPage - 1) + '/6').then(function (resp) {
                     // console.log(resp);
                     _this.tableData = resp.data.content;
                     _this.pageSize = resp.data.size;
                     _this.total = resp.data.totalElements;
+                })} else {
+                axios.post('http://localhost:8181/member/findAllByName/' + (currentPage - 1) + '/6', this.member).then(function (resp) {
+                    // console.log(resp);
+                    _this.tableData = resp.data.content;
+                    _this.pageSize = resp.data.size;
+                    _this.total = resp.data.totalElements;
                 })
+                }
             }
 
         },

@@ -40,7 +40,7 @@
 
         </el-table>
 
-        <div class="block">
+        <div class="block" align="center">
             <el-pagination
                     @size-change="handleSizeChange"
                     @current-change="page"
@@ -59,6 +59,7 @@
         inject:['reload'],                                 //注入App里的reload方法
         data() {
             return {
+                flag:'1',
                 pageSize: 0,
                 total: 0,
                 tableData: [],
@@ -156,8 +157,9 @@
             // 模糊查找
             findTime() {
                 const _this = this;
+                _this.flag = 2;
                 axios.post('http://localhost:8181/bmi/findAllByTime/0/6', this.bmi).then(function (resp) {
-                    console.log(resp);
+                    // console.log(resp);
                     _this.tableData = resp.data.content;
                     _this.pageSize = resp.data.size;
                     _this.total = resp.data.totalElements;
@@ -179,12 +181,20 @@
             // 查询
             page(currentPage) {
                 const _this = this;
+                if(_this.flag == 1){
                 axios.post('http://localhost:8181/bmi/findAllByAccount/' + (currentPage - 1) + '/6',this.bmi).then(function (resp) {
                     // console.log("Bmi："+resp);
                     _this.tableData = resp.data.content;
                     _this.pageSize = resp.data.size;
                     _this.total = resp.data.totalElements;
+                })}else {
+                axios.post('http://localhost:8181/bmi/findAllByTime/' + (currentPage - 1) + '/6', this.bmi).then(function (resp) {
+                    // console.log(resp);
+                    _this.tableData = resp.data.content;
+                    _this.pageSize = resp.data.size;
+                    _this.total = resp.data.totalElements;
                 })
+                }
             }
 
         },

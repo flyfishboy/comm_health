@@ -86,7 +86,6 @@
         inject: ['reload'],
         data() {
             return {
-
                 account: '',
                 name: '',
                 accounta: '',
@@ -108,13 +107,14 @@
                 },
                 //存储好友
                 atob:{
+                    id:this.$route.query.id,
+                    time:'',
                     accounta:window.sessionStorage.getItem("account"),
                     accountb:this.$route.query.account,
                     namea:window.sessionStorage.getItem("name"),
                     nameb:this.$route.query.name,
-                }
-
-
+                    badge:true,
+                },
 
             }
         },
@@ -125,6 +125,7 @@
                 const $date = new Date();
                 const $time = $date.toLocaleString();
                 this.ruleForm3.time = $time;
+                this.atob.time = $time;
             },
             // 发送
             submitForm(formName) {
@@ -133,7 +134,7 @@
                 const _this = this;
 
                 //保存到atob表，存储两个聊天人的数据
-                axios.post('http://localhost:8181/atob/find',this.atob ).then(function (resp) {
+                axios.post('http://localhost:8181/atob/saveBadge',this.atob ).then(function (resp) {
                     console.log(resp);
                 });
 
@@ -168,16 +169,10 @@
                     // console.log(resp);
                     _this.tableData2 = resp.data;
                 });
-                // let info = {accounta: '聊天内容，触发后push一个'},
-                //     _this.ruleForm3.accounta(info)
-                // // 核心代码
-                // // 滚动
-                this.$nextTick(() => {
-                    let msg = document.getElementById('gundong') // 获取对象
-                    msg.scrollTop = msg.scrollHeight // 滚动高度
-                });
-
-
+                // this.$nextTick(() => {
+                //     let msg = document.getElementById('gundong'); // 获取对象
+                //     msg.scrollTop = msg.scrollHeight // 滚动高度
+                // });
 
                 let i = 0;
                 const run = setInterval(() => {
@@ -187,7 +182,7 @@
                         clearInterval(run)
                     } else {
                         axios.post('http://localhost:8181/room/find', _this.ruleForm2).then(function (resp) {
-                            console.log(resp);
+                            // console.log(resp);
                             _this.tableData2 = resp.data;
                         })
                     }}, 2000);

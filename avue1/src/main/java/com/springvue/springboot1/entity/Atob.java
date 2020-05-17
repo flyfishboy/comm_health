@@ -12,10 +12,12 @@ public class Atob implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Integer id;
+    private String time;
     private String accounta;
     private String accountb;
     private String namea;
     private String nameb;
+    private String badge;
 
     public Integer getId() {
         return id;
@@ -23,6 +25,14 @@ public class Atob implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getAccounta() {
@@ -57,14 +67,24 @@ public class Atob implements Serializable {
         this.nameb = nameb;
     }
 
+    public String getBadge() {
+        return badge;
+    }
+
+    public void setBadge(String badge) {
+        this.badge = badge;
+    }
+
     @Override
     public String toString() {
         return "Atob{" +
                 "id=" + id +
+                ", time='" + time + '\'' +
                 ", accounta='" + accounta + '\'' +
                 ", accountb='" + accountb + '\'' +
                 ", namea='" + namea + '\'' +
                 ", nameb='" + nameb + '\'' +
+                ", badge='" + badge + '\'' +
                 '}';
     }
 }

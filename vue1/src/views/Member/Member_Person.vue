@@ -97,7 +97,7 @@
         created(){
             const _this = this;
             axios.post("http://localhost:8181/member/findAllByAccount/"+window.sessionStorage.getItem('account')).then(function (resp) {
-                console.log(resp);
+                // console.log(resp);
                 _this.tableData = resp.data;
                 window.sessionStorage.setItem("turl",resp.data[0].turl);
             })

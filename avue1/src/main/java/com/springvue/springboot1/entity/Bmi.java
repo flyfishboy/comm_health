@@ -76,4 +76,17 @@ public class Bmi implements Serializable {
     public void setAccount(String account) {
         this.account = account;
     }
+
+    @Override
+    public String toString() {
+        return "Bmi{" +
+                "id=" + id +
+                ", time='" + time + '\'' +
+                ", height='" + height + '\'' +
+                ", weight='" + weight + '\'' +
+                ", bmi='" + bmi + '\'' +
+                ", status='" + status + '\'' +
+                ", account='" + account + '\'' +
+                '}';
+    }
 }
