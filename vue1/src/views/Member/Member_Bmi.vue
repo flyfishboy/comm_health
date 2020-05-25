@@ -28,7 +28,8 @@
             </el-table-column>
 
             <el-table-column
-                    align="right">
+                    align="right"
+                    label="操作">
                 <template slot-scope="scope">
                     <el-button
                             size="mini"

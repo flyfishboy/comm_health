@@ -2,7 +2,7 @@
     <div id="Header" style="background-color: #545c64;">
         <div style="">
             <el-menu
-                    style="margin-left: 30%;height: 60px"
+                    style="margin-left: 25%;height: 60px"
                     :default-active="activeIndex"
                     class="el-menu-demo"
                     mode="horizontal"
@@ -41,12 +41,16 @@
                     <el-menu-item index="4-1">
                         <router-link to="/Bmi" style="color: lavenderblush">BMI测量</router-link>
                     </el-menu-item>
-                    <el-menu-item index="4-2">
-                        <router-link to="/Member_Know" style="color: lavenderblush">健康小知识</router-link>
+                </el-submenu>
+
+                <el-submenu index="7" >
+                    <template slot="title">健康小常识</template>
+                    <el-menu-item index="7-1">
+                        <router-link to="/Member_Know" style="color: lavenderblush">健康小常识</router-link>
                     </el-menu-item>
                 </el-submenu>
 
-                <el-submenu index="5">
+                <el-submenu index="5" v-if="name != null">
                     <template slot="title">聊天室</template>
                     <el-menu-item index="5-1">
                         <router-link to="/Room_Member" style="color: lavenderblush">寻找好友</router-link>

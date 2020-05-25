@@ -1,7 +1,7 @@
 <template>
     <div style="background-color: skyblue;height: 710px" align="center">
         <div style="margin-top: -1%">
-            <h2>消息提示</h2>
+            <h2>消息提醒</h2>
         </div>
         <el-input style="width: 20%;" v-model="atob.namea" size="mini" placeholder="输入姓名搜索" @clear="getList2()" clearable/>&nbsp;
         <el-button  @click="findName">搜索</el-button>
@@ -32,7 +32,7 @@
             </el-table-column>
 
             <el-table-column
-
+                    label="操作"
                     align="right">
                 <template slot-scope="scope" >
                     <el-button

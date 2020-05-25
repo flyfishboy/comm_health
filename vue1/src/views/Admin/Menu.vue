@@ -2,7 +2,7 @@
     <el-container style="height: 700px; border: 1px solid #eee">
         <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
 
-            <el-menu router :default-openeds="['0','1','2','3','4','5']"
+            <el-menu router :default-openeds="['0','1','2','3','4','5','6']"
                      @open="handleOpen"
                      @close="handleClose"
             >

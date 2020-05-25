@@ -19,11 +19,19 @@ public class AtobController {
     @Autowired
     private AtobRepository atobRepository;
 
-    //查询当前登录用户发消息的对象
+    //查询当前登录用户发消息的对象，历史记录
     @PostMapping("/findAllByAccounta/{page}/{size}") //分页
     public Page<Atob> findAll(@PathVariable("page") Integer page, @PathVariable("size") Integer size,@RequestBody Atob atob) {
         PageRequest request = PageRequest.of(page, size);
         return atobRepository.findAllByAccounta(request,atob.getAccounta());
+    }
+
+    //模糊查找历史记录里的nameb
+    @PostMapping("/findAllByName2/{page}/{size}")
+    public Page<Atob> findAllByNameLike3(@PathVariable("page") Integer page, @PathVariable("size") Integer size,
+                                         @RequestBody Atob atob) {
+        PageRequest request = PageRequest.of(page, size);
+        return atobRepository.findByAccountaAndNamebLike(request,atob.getAccounta(),"%"+atob.getNameb()+"%");
     }
 
     //查询其他用户发给当前用户的消息,消息提示
@@ -31,14 +39,6 @@ public class AtobController {
     public Page<Atob> findAllByBadge(@PathVariable("page") Integer page, @PathVariable("size") Integer size,@RequestBody Atob atob) {
         PageRequest request = PageRequest.of(page, size);
         return atobRepository.findAllByAccountbAndBadge(request,atob.getAccountb(),atob.getBadge());
-    }
-
-    //模糊查找历史记录里的nameb
-    @PostMapping("/findAllByName2/{page}/{size}")
-    public Page<Atob> findAllByNameLike3(@PathVariable("page") Integer page, @PathVariable("size") Integer size,
-                                        @RequestBody Atob atob) {
-        PageRequest request = PageRequest.of(page, size);
-        return atobRepository.findByAccountaAndNamebLike(request,atob.getAccounta(),"%"+atob.getNameb()+"%");
     }
 
     //模糊查找消息提示里的Namea
@@ -55,7 +55,7 @@ public class AtobController {
        return "success";
     }
 
-    //
+    //第一次保存
     @PostMapping("/saveBadge")
     public String saveBadge(@RequestBody Atob atob){
         List<Atob> list = atobRepository.findAllByIdAndAccountaAndAccountb(atob.getId(),atob.getAccounta(),atob.getAccountb());

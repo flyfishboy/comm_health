@@ -10,7 +10,11 @@
     </el-form-item>
 
     <el-form-item label="密码" prop="password">
-        <el-input v-model="ruleForm.password" placeholder="请输入所要添加人的密码"></el-input>
+        <el-input type="password" v-model="ruleForm.password" autocomplete="off" placeholder="请输入密码"></el-input>
+    </el-form-item>
+
+    <el-form-item label="确认密码" prop="checkPass">
+        <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off" placeholder="请重新输入密码"></el-input>
     </el-form-item>
 
     <el-form-item label="性别" prop="sex">
@@ -31,7 +35,7 @@
 
 
     <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+        <el-button type="primary" @click="submitForm(ruleForm)">提交</el-button>
         <el-button type="primary" @click="resetForm('ruleForm')">重置</el-button>
 
     </el-form-item>
@@ -39,7 +43,27 @@
 </template>
 <script>
     export default {
+        inject:['reload'],
         data() {
+            var validatePass = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请输入密码'));
+                } else {
+                    if (this.ruleForm.checkPass !== '') {
+                        this.$refs.ruleForm.validateField('checkPass');
+                    }
+                    callback();
+                }
+            };
+            var validatePass2 = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请再次输入密码'));
+                } else if (value !== this.ruleForm.password) {
+                    callback(new Error('两次输入密码不一致!'));
+                } else {
+                    callback();
+                }
+            };
             return {
                 ruleForm: {
                     name: '',
@@ -48,7 +72,8 @@
                     sex:'',
                     tel:'',
                     email:'',
-                    health:''
+                    health:'',
+                    checkPass:''
                 },
 
                 rules: {
@@ -58,10 +83,6 @@
                     ],
                     account: [
                         { required: true, message: '请输入账号', trigger: 'blur' },
-                        { min: 0, max: 20, message: '长度小于20 个字符', trigger: 'blur' }
-                    ],
-                    password: [
-                        { required: true, message: '请输入密码', trigger: 'blur' },
                         { min: 0, max: 20, message: '长度小于20 个字符', trigger: 'blur' }
                     ],
                     tel: [
@@ -75,21 +96,31 @@
                     health: [
                         { required: true, message: '请输入您的健康情况', trigger: 'blur' },
                         { min: 0, max: 20, message: '长度小于20 个字符', trigger: 'blur' }
-                    ]
+                    ],
+                    password: [
+                        { validator: validatePass, trigger: 'blur' }
+                    ],
+                    checkPass: [
+                        { validator: validatePass2, trigger: 'blur' }
+                    ],
                 }
             };
         },
         methods: {
-            submitForm(formName) {
+            submitForm(item) {
                 const _this = this;
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        axios.post('http://localhost:8181/member/save',this.ruleForm).then(function (resp) {
+                axios.post('http://localhost:8181/member/findAllByAccount2/' + item.account).then(function (resp1) {
+                    console.log(resp1.data);
+                    if(resp1.data == 'success'){
+                        _this.$message({message: '账号已被注册，请重新注册', type: 'error'});
+                        _this.reload()
+                    } else if(item.name != '' && item.account != '' && item.password != '' && item.sex != '' && item.tel != '' && item.email != '' && item.health != '' && item.checkPass != '' ){
+                        axios.post('http://localhost:8181/member/save',item).then(function (resp) {
                             if(resp.data == 'success'){
                                 _this.$alert(''+_this.ruleForm.name+'  添加成功！', '消息', {
                                     confirmButtonText: '确定',
                                     callback: action => {
-                                        _this.$router.push('/Admin_Manage')
+                                        _this.$router.push('/')
                                     }
                                 })
                             }else{
@@ -97,7 +128,7 @@
                             }
                         })
                     } else {
-                        return false;
+                        _this.$message({message: '请将信息填写完整', type: 'error'});
                     }
                 });
             },
