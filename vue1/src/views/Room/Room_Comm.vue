@@ -1,20 +1,18 @@
 <template>
-    <div class="user-all" align="center" style="background-color: lightsteelblue;height: 711px">
-        <div class="box" id="gundong" align="center" style="width: 1000px;background-color: whitesmoke;border-radius: 4px;padding-left: 12px;
-      padding-right: 12px;
-      min-height: calc(100% - 160px);
-      height: calc(100% - 140px);
-      overflow-y: auto;" >
-
+    <!--<div  align="center" style="background-color: lightsteelblue;height: 711px">-->
+    <!--<div class="main" ref="main" id="gundong"  align="center"  >-->
+    <div class="user-all" style="background-color: skyblue;height: 711px">
+    <div class="main" ref="main" align="center" style="background-color: whitesmoke;height: 711px;margin-top: -15px">
+        <div   ref="content"     >
 
             <!--聊天表数据-->
-            <div v-for="item2 in tableData2">
+            <div v-for="item2 in tableData2" >
 
                 <!--用户信息数据-->
-                <div v-for="item in tableData" style="width: 95%">
+                <div v-for="item in tableData" style="width: 95%" >
 
                     <!--判断A用户，显示头像和姓名-->
-                    <div v-if=" item2.contentb == ''" align="right">
+                    <div v-if=" item2.contentb == ''" align="right" style="margin-top:-20px">
                         <div v-if="item.account == item2.accounta">
                             <div>
                             <a target="_blank" style="color: mediumslateblue" data-clicklog="nick" class="name">{{item.name}}</a>
@@ -22,7 +20,7 @@
                             </div>
 
                             <!--显示聊天内容-->
-                            <div style="margin-top: 20px;font-size: 17px">
+                            <div style="margin-top: 10px;font-size: 17px;margin-right: 20px">
                                 <span>{{item2.contenta}}</span>
                                 <el-divider></el-divider>
                             </div>
@@ -31,13 +29,13 @@
                     </div>
 
                     <!--判断B用户，显示头像和姓名-->
-                    <div v-if=" item2.contenta == ''" align="left">
+                    <div v-if=" item2.contenta == ''" align="left" style="margin-top:-20px">
                         <div v-if="item.account == item2.accountb">
                             <el-avatar :src="item.turl"></el-avatar>
                             <a target="_blank" style="color: mediumslateblue" data-clicklog="nick" class="name">{{item.name}}</a>
 
                             <!--显示聊天内容-->
-                            <div style="margin-top: 20px;font-size: 17px">
+                            <div style="font-size: 17px;margin-top: 10px;margin-left: 20px">
                                 <span>{{item2.contentb}}</span>
                                 <el-divider></el-divider>
                             </div>
@@ -48,10 +46,8 @@
             </div>
         </div>
 
-
-
         <!--聊天框-->
-        <div class="userpto" style="margin-left: 0%;width: 400px;margin-top: 30px">
+        <div  style="margin-left: 0%;width: 400px;margin-top: 30px">
 
             <el-form :model="ruleForm3" ref="ruleForm" class="demo-ruleForm">
                 <tr>
@@ -79,10 +75,13 @@
         </div>
 
     </div>
+    </div>
 </template>
 
 <script>
     export default {
+
+
         inject: ['reload'],
         data() {
             return {
@@ -92,6 +91,7 @@
                 tableData: [], //所有用户数据
                 tableData2: [], //聊天列表数据
                 ruleForm: [],
+
                 // 聊天表数据
                 ruleForm3: {
                     time: '',
@@ -120,6 +120,7 @@
         },
 
         methods: {
+
             gettime() {
                 //获取日期
                 const $date = new Date();
@@ -132,7 +133,6 @@
                 // console.log(this.ruleForm3);
                 this.gettime();
                 const _this = this;
-
                 //保存到atob表，存储两个聊天人的数据
                 axios.post('http://localhost:8181/atob/saveBadge',this.atob ).then(function (resp) {
                     console.log(resp);
@@ -150,7 +150,7 @@
                 //保存到commroom的两个人的聊天数据,数据互换，便于查找
                 axios.post('http://localhost:8181/room/save2', this.ruleForm3).then(function (resp) {
 
-                })
+                });
 
             },
 
@@ -168,30 +168,37 @@
                 axios.post('http://localhost:8181/room/find', _this.ruleForm2).then(function (resp) {
                     // console.log(resp);
                     _this.tableData2 = resp.data;
+                    // 下滑框默认为最底部
+                    _this.$nextTick(() => {
+                        _this.$refs.main.scrollTop = _this.$refs.content.scrollHeight;
+                    });
                 });
-                // this.$nextTick(() => {
-                //     let msg = document.getElementById('gundong'); // 获取对象
-                //     msg.scrollTop = msg.scrollHeight // 滚动高度
-                // });
 
                 let i = 0;
                 const run = setInterval(() => {
                     i++;
                     console.log(i);
-                    if (i == 2) {
+                    if (i == 5) {
                         clearInterval(run)
                     } else {
                         axios.post('http://localhost:8181/room/find', _this.ruleForm2).then(function (resp) {
                             // console.log(resp);
                             _this.tableData2 = resp.data;
-                        })
-                    }}, 2000);
+
+                        });
+                    }}, 4000);
+                // 下滑框默认为最底部
+                _this.$nextTick(() => {
+                    _this.$refs.main.scrollTop = _this.$refs.content.scrollHeight;
+                });
             }
 
         },
 
 
         created() {
+
+
             const _this = this;
             axios.get('http://localhost:8181/member/findByAccount3/' + this.$route.query.account).then(function (resp) {
                 // console.log(resp);
@@ -200,6 +207,7 @@
             });
             _this.getMember();
             _this.getComm();
+
 
         }
     }
@@ -211,6 +219,19 @@
         margin-bottom: 16px;
         position: relative;
         word-wrap: break-word;
+
+    }
+    .main{
+        width: 70%;
+        margin-left: 17%;
+        background-color: whitesmoke;
+        border-radius: 4px;
+        padding-left: 12px;
+        padding-right: 12px;
+        min-height: calc(100% - 160px);
+        height: calc(100% - 140px);
+        overflow-y: auto;
+
     }
 
 </style>

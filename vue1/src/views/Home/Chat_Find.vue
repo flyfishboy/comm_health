@@ -1,6 +1,8 @@
 
 <template>
+
     <div  class="user-all" align="center" style="background-color: skyblue">
+        <el-backtop></el-backtop>
         <el-card v-for="item in tableData" style="width: 60%" align="left">
             <div   class="userpto">
                 <!--显示头像-->
@@ -89,7 +91,10 @@
                 :total="total"
                 @current-change="page1">
         </el-pagination>
+
+
     </div>
+
 </template>
 
 <script>
