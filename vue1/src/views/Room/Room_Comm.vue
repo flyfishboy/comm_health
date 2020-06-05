@@ -1,7 +1,6 @@
 <template>
-    <!--<div  align="center" style="background-color: lightsteelblue;height: 711px">-->
-    <!--<div class="main" ref="main" id="gundong"  align="center"  >-->
-    <div class="user-all" style="background-color: skyblue;height: 711px">
+
+    <div class="user-all" style="background-color: powderblue;height: 711px">
     <div class="main" ref="main" align="center" style="background-color: whitesmoke;height: 711px;margin-top: -15px">
         <div   ref="content"     >
 
@@ -12,7 +11,7 @@
                 <div v-for="item in tableData" style="width: 95%" >
 
                     <!--判断A用户，显示头像和姓名-->
-                    <div v-if=" item2.contentb == ''" align="right" style="margin-top:-20px">
+                    <div v-if=" item2.contentb == ''" align="right" >
                         <div v-if="item.account == item2.accounta">
                             <div>
                             <a target="_blank" style="color: mediumslateblue" data-clicklog="nick" class="name">{{item.name}}</a>
@@ -141,7 +140,7 @@
                 //保存到commroom的两个人的聊天数据
                 axios.post('http://localhost:8181/room/save', this.ruleForm3).then(function (resp) {
                     if (resp.data == 'success') {
-                        _this.$message({message: '已发送', type: 'success'});
+                        _this.$message({showClose: true,message: '已发送', type: 'success'});
                         _this.reload();
                     } else {
                         _this.$message.error('发送失败');
@@ -178,7 +177,7 @@
                 const run = setInterval(() => {
                     i++;
                     console.log(i);
-                    if (i == 5) {
+                    if (i == 8) {
                         clearInterval(run)
                     } else {
                         axios.post('http://localhost:8181/room/find', _this.ruleForm2).then(function (resp) {
@@ -197,8 +196,6 @@
 
 
         created() {
-
-
             const _this = this;
             axios.get('http://localhost:8181/member/findByAccount3/' + this.$route.query.account).then(function (resp) {
                 // console.log(resp);

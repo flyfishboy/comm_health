@@ -11,20 +11,20 @@
                     text-color="#fff"
                     active-text-color="#ffd04b">
 
-                <el-menu-item>
+                <el-menu-item index="1">
                     <router-link to="/0">
                         健康生活交流平台
                     </router-link>
                 </el-menu-item>
                 <el-submenu index="2" v-if="name!=null">
                     <template slot="title">动态交流</template>
-                    <el-menu-item style="font-size: 18px">
+                    <el-menu-item index="2-1" style="font-size: 18px">
                         <router-link to="/Chat_Find" style="color: lavenderblush">查看动态</router-link>
                     </el-menu-item>
-                    <el-menu-item style="font-size: 18px">
+                    <el-menu-item index="2-2" style="font-size: 18px">
                         <router-link to="/Chat_Person" style="color: lavenderblush">个人查看</router-link>
                     </el-menu-item>
-                    <el-menu-item style="font-size: 18px">
+                    <el-menu-item index="2-3" style="font-size: 18px">
                         <router-link to="/Chat_Add" style="color: lavenderblush">发表动态</router-link>
                     </el-menu-item>
                 </el-submenu>

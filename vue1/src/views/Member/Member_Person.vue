@@ -1,5 +1,5 @@
 <template >
-    <div  class="user-all" align="center" style="background-color: skyblue;height: 680px" >
+    <div  class="user-all" align="center" style="background-color: powderblue;height: 680px" >
 
         <el-form v-for="item in tableData" style="width: 60%" align="left" >
 
@@ -36,7 +36,7 @@
                             </el-form-item>
                         </el-form>
                     </div>
-                    <el-button style="background-color:skyblue" slot="reference">  <el-avatar :src="item.turl"></el-avatar></el-button>
+                    <el-button style="background-color:powderblue" slot="reference">  <el-avatar :src="item.turl"></el-avatar></el-button>
                 </el-popover>
                 </div>
 

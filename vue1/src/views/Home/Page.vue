@@ -15,6 +15,8 @@
             <el-link class="link1"  type="primary" href="https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_3">
                 疫情实时大数据报告
             </el-link>
+            <router-link :to="{path:'https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_3',}" target="_blank">
+            </router-link>
         </div>
     </div>
 

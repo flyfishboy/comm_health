@@ -1,5 +1,5 @@
 <template>
-    <div style="background-color: skyblue;height: 710px" align="center">
+    <div style="background-color: powderblue;height: 710px" align="center">
         <div style="margin-top: -1%">
             <h2>消息提醒</h2>
         </div>
@@ -82,6 +82,7 @@
                 //保存标识符
                 badge2:{
                     id:'',
+                    time:'',
                     accounta:'',
                     accountb:window.sessionStorage.getItem("account"),
                     namea:'',
@@ -113,6 +114,12 @@
         },
 
         methods: {
+            gettime() {
+                //获取日期
+                const $date = new Date();
+                const $time = $date.toLocaleString();
+                this.saveatob.time = $time;
+            },
             handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);
             },
@@ -120,7 +127,7 @@
             getList2() {
                 const _this = this;
                 axios.post('http://localhost:8181/atob/findAllByBadge/0/6',this.track2).then(function (resp) {
-                    console.log(resp);
+                    // console.log(resp);
                     _this.tableData2 = resp.data.content;
                     _this.pageSize = resp.data.size;
                     _this.total = resp.data.totalElements;
@@ -163,7 +170,7 @@
                 })
             },
 
-            //进入聊天室
+            //进入聊天室并回复
             Edit_B(row) {
 
                 this.$router.push({
@@ -174,7 +181,7 @@
                         name:row.namea,
                     }
                 });
-
+                this.gettime();
                 this.badge2.id = row.id;
                 this.badge2.namea = row.namea;
                 this.badge2.accounta = row.accounta;

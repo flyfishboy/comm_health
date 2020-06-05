@@ -1,5 +1,5 @@
 <template>
-    <div style="background-color: skyblue;height: 720px" align="center">
+    <div style="background-color: powderblue;height: 720px" align="center">
         <div style="margin-top: -1%">
             <h2>聊天用户</h2>
         </div>

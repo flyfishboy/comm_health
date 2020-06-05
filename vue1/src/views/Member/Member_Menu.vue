@@ -1,5 +1,5 @@
 <template>
-    <div style="background-color: skyblue">
+    <div style="background-color: powderblue">
         <el-container style="height: 770px; border: 1px solid #eee">
             <!--左侧导航栏-->
             <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
@@ -45,7 +45,7 @@
                     <el-row class="block-col-2">
                         <el-col :span="12">
                             <el-dropdown trigger="click" style="margin-right: -100%">
-                                <span class="el-dropdown-link">菜单<i class="el-icon-arrow-down el-icon--right"></i></span>
+                                <span style="color: black" class="el-dropdown-link">菜单<i class="el-icon-arrow-down el-icon--right"></i></span>
                                 <el-dropdown-menu slot="dropdown">
                                     <el-dropdown-item @click.native="findP" style="font-size: 16px">查看<i class="el-icon-view el-icon--right"></i></el-dropdown-item>
                                     <el-dropdown-item @click.native="out1" style="font-size: 16px">注销<i class="el-icon-warning el-icon--right"></i> </el-dropdown-item>

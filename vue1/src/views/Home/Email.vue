@@ -89,7 +89,7 @@
                 axios.post('http://localhost:8181/email/save', this.ruleForm).then(function (resp) {
                     if (resp.data == 'success') {
                         // window.sessionStorage.setItem('time', _this.ruleForm.time);
-                        _this.$message({message: '已将数据保存', type: 'success'});
+                        // _this.$message({message: '已将数据保存', type: 'success'});
 
                     } else {
                         _this.$message('请重试');
@@ -101,7 +101,7 @@
                     const _this = this;
                     i++;
                     console.log(i);
-                    if (i == 2) {
+                    if (i == 3) {
                         clearInterval(run)
                     } else {
                         axios.post('http://localhost:8181/qqemail', this.ruleForm).then(function (resp) {
@@ -117,7 +117,7 @@
                             }
                         })
                     }
-                }, 6000);
+                }, 15000);
             },
 
         },

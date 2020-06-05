@@ -1,5 +1,5 @@
 <template>
-    <div style="background-color: skyblue;height: 710px" align="center">
+    <div style="background-color: powderblue;height: 710px" align="center">
         <div style="margin-top: -1%">
             <h2>聊天历史记录</h2>
         </div>
@@ -64,14 +64,14 @@
                 total: 0,
                 currentPage:1,
                 tableData: [],
-                //查询我发给对象消息的信息
-
+                //查询聊天信息接收者的信息
                 track:{
                     accounta:window.sessionStorage.getItem("account"),
                 },
                 //存储好友
                 saveatob:{
                     id:'',
+                    time:'',
                     accounta:window.sessionStorage.getItem("account"),
                     accountb:'',
                     namea:window.sessionStorage.getItem("name"),
@@ -97,6 +97,12 @@
         },
 
         methods: {
+            gettime() {
+                //获取日期
+                const $date = new Date();
+                const $time = $date.toLocaleString();
+                this.saveatob.time = $time;
+            },
             handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);
             },
@@ -124,7 +130,7 @@
 
             },
 
-            Edit_A(row) {   //进入聊天室
+            Edit_A(row) {   //进入聊天室并保存数据
                 this.$router.push({
                     path:'/Room_Comm',
                     query:{
@@ -133,6 +139,7 @@
                         name:row.nameb,
                     }
                 });
+                this.gettime();
                 this.saveatob.id = row.id;
                 this.saveatob.nameb = row.nameb;
                 this.saveatob.accountb = row.accountb;

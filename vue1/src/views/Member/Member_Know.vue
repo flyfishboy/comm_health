@@ -1,5 +1,5 @@
 <template>
-    <div style="background-color: skyblue">
+    <div style="background-color: powderblue">
     <div align="center" >
     <!--推荐内容-->
         <el-card class="box-card" style="width: 60%" v-if="health != null">
@@ -34,14 +34,16 @@
         <el-button  @click="findName">搜索</el-button>
         <el-table
                 :data="tableData"
-                style="width: 100%;margin-top: 8px">
+                style="width: 80%;margin-top: 8px">
             <el-table-column
                     label="小常识"
+                    align="center"
                     prop="message">
             </el-table-column>
             <el-table-column
                     label="健康类别"
-                    prop="health">
+                    prop="health"
+                    align="center">
             </el-table-column>
         </el-table>
 

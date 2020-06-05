@@ -35,5 +35,4 @@ public class EmailController {
             return "发送失败";
         }
     }
-
 }

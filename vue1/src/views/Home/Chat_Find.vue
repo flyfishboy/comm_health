@@ -1,7 +1,7 @@
 
 <template>
 
-    <div  class="user-all" align="center" style="background-color: skyblue">
+    <div  class="user-all" align="center" style="background-color: powderblue">
         <el-backtop></el-backtop>
         <el-card v-for="item in tableData" style="width: 60%" align="left">
             <div   class="userpto">

@@ -18,7 +18,6 @@
       "pageheader":Header,
       "page":Page,
       "page2":Page2,
-      // "page3":Page3,
       "Chat_Find":Chat_Find,
 
     }

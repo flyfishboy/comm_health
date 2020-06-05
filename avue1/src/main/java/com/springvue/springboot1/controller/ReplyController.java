@@ -1,7 +1,5 @@
 package com.springvue.springboot1.controller;
 
-import com.springvue.springboot1.ResponseBean;
-import com.springvue.springboot1.entity.Admin;
 import com.springvue.springboot1.entity.Reply;
 import com.springvue.springboot1.repository.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
