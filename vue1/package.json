@@ -10,7 +10,7 @@
     "core-js": "^3.6.4",
     "element-ui": "^2.4.5",
     "file-saver": "^2.0.2",
-    "nodemailer": "^6.4.6",
+    "nodemailer": "^6.4.16",
     "vue": "^2.6.11",
     "vue-canvas-nest": "^2.0.0",
     "vue-router": "^3.1.5",
